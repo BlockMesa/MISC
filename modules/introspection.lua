@@ -157,7 +157,7 @@ return {
         end
       end
     end
-    interface.start = function() waitForAll(mainLoop,introspectLoop)	end
+    interface.start = function() parallel.waitForAll(mainLoop,introspectLoop)	end --oops
     ---@class modules.introspection.interface
     return interface
   end
