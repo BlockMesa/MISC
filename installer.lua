@@ -142,7 +142,7 @@ local clientInstallOptions = {
 local autoStartInstall = {
   name = "Auto-start Script",
   files = {
-    ["misc.lua"] = fromRepository "clients/terminal.lua",
+    ["startup.lua"] = fromRepository "autostart.lua",
   }
 }
 
