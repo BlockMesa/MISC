@@ -26,7 +26,7 @@ A minimal MISC system consists of
 
 The client can be advanced or basic, it supports both mouse and keyboard.
 
-On both your server and all your clients simply run `wget run https://raw.githubusercontent.com/MasonGulu/CC-MISC/master/installer.lua`.
+On both your server and all your clients simply run `wget run https://raw.githubusercontent.com/BlockMesa/MISC/master/installer.lua`.
 
 On your server select the base MISC system option.
 

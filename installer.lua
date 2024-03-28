@@ -1,7 +1,9 @@
-local repositoryUrl = "https://raw.githubusercontent.com/MasonGulu/CC-MISC/master/"
+local repositoryUrl = "https://raw.githubusercontent.com/BlockMesa/MISC/master/"
 
 if ({ ... })[1] == "dev" then
-  repositoryUrl = "https://raw.githubusercontent.com/MasonGulu/CC-MISC/dev/"
+  repositoryUrl = "https://raw.githubusercontent.com/BlockMesa/CC-MISC/dev/"
+elseif ({ ... })[1] == "main" then
+  repositoryUrl = "https://raw.githubusercontent.com/MasonGulu/CC-MISC/master/"
 end
 
 local function fromURL(url)
