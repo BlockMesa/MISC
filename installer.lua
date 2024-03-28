@@ -61,7 +61,7 @@ local chatboxInstall = {
 local baseInstall = {
   name = "Base MISC",
   files = {
-    ["startup.lua"] = fromRepository "storage.lua",
+    ["misc.lua"] = fromRepository "storage.lua",
     ["abstractInvLib.lua"] = fromURL "https://gist.githubusercontent.com/MasonGulu/57ef0f52a93304a17a9eaea21f431de6/raw/07c3322a5fa0d628e558e19017295728e4ee2e8d/abstractInvLib.lua", -- TODO change this
     ["common.lua"] = fromRepository "common.lua",
     modules = {
@@ -94,7 +94,7 @@ local serverInstallOptions = {
 local terminalInstall = {
   name = "Access Terminal",
   files = {
-    ["startup.lua"] = fromRepository "clients/terminal.lua",
+    ["misc.lua"] = fromRepository "clients/terminal.lua",
     ["modemLib.lua"] = fromRepository "clients/modemLib.lua"
   }
 }
@@ -102,23 +102,22 @@ local terminalInstall = {
 local introspectionTermInstall = {
   name = "Access Terminal (Introspection)",
   files = {
-    ["startup.lua"] = fromRepository "clients/terminal.lua",
+    ["misc.lua"] = fromRepository "clients/terminal.lua",
     ["websocketLib.lua"] = fromRepository "clients/websocketLib.lua"
   }
 }
 
-
 local crafterInstall = {
   name = "Crafter Turtle",
   files = {
-    ["startup.lua"] = fromRepository "clients/crafter.lua"
+    ["misc.lua"] = fromRepository "clients/crafter.lua"
   }
 }
 
 local monitorInstall = {
   name = "Usage Monitor",
   files = {
-    ["startup.lua"] = fromRepository "clients/usageMonitor.lua",
+    ["misc.lua"] = fromRepository "clients/usageMonitor.lua",
     ["modemLib.lua"] = fromRepository "clients/modemLib.lua"
   }
 }
@@ -126,7 +125,7 @@ local monitorInstall = {
 local introspectionMonInstall = {
   name = "Usage Monitor (Introspection)",
   files = {
-    ["startup.lua"] = fromRepository "clients/usageMonitor.lua",
+    ["misc.lua"] = fromRepository "clients/usageMonitor.lua",
     ["websocketLib.lua"] = fromRepository "clients/websocketLib.lua"
   }
 }
@@ -140,7 +139,15 @@ local clientInstallOptions = {
   w = introspectionMonInstall,
 }
 
+local autoStartInstall = {
+  name = "Auto-start Script",
+  files = {
+    ["misc.lua"] = fromRepository "clients/terminal.lua",
+  }
+}
+
 local installOptions = {
+  a = autoStartInstall,
   s = serverInstallOptions,
   c = clientInstallOptions
 }

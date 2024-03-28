@@ -34,7 +34,9 @@ return {
   init = function(loaded, config)
     local introspection = {}
     for k, v in pairs(config.introspection.introspection.value) do
-      introspection[k] = peripheral.call(v, "getInventory")
+      pcall(function()
+        introspection[k] = peripheral.call(v, "getInventory")
+      end)
     end
 
     local interface = {}
@@ -106,27 +108,32 @@ return {
     local function callIntrospection(event)
       local message = event.message
       local periph = introspection[message.player]
-      if periph then
-        local response = deepCloneNoFunc(table.pack(periph[message.method](table.unpack(message.args, 1, message.args.n))))
-        ws.send(textutils.serialise {
-          destination = message.source,
-          protocol = "call_introspection",
-          response = response,
-          method = message.method,
-          source = "HOST"
-        })
-      else
-        ws.send(textutils.serialise {
-          destination = message.source,
-          protocol = "call_introspection",
-          response = "ACCESS DENIED",
-          method = message.method,
-          source = "HOST",
-        })
+      local success, response = pcall(function()
+        if periph then
+          local response = deepCloneNoFunc(table.pack(periph[message.method](table.unpack(message.args, 1, message.args.n))))
+          ws.send(textutils.serialise {
+            destination = message.source,
+            protocol = "call_introspection",
+            response = response,
+            method = message.method,
+            source = "HOST"
+          })
+        else
+          ws.send(textutils.serialise {
+            destination = message.source,
+            protocol = "call_introspection",
+            response = "ACCESS DENIED",
+            method = message.method,
+            source = "HOST",
+          })
+        end
+      end)
+      if not success then
+        introspection[message.player] = nil
+        print("Warning!",message.player,response)
       end
     end
-
-    interface.start = function()
+    local function mainLoop()
       while true do
         local event = getWebsocketMessage(validateMessage)
         assert(event, "Got no message??")
@@ -139,6 +146,18 @@ return {
         end
       end
     end
+    local function introspectLoop()
+      while true do
+        for k, v in pairs(config.introspection.introspection.value) do
+          if not introspection[k] then
+            pcall(function()
+              introspection[k] = peripheral.call(v, "getInventory")
+            end)
+          end
+        end
+      end
+    end
+    interface.start = function() waitForAll(mainLoop,introspectLoop)	end
     ---@class modules.introspection.interface
     return interface
   end

@@ -24,7 +24,12 @@ return {
             default = {},
             description = "If introspection is not present, this serves as a lookup from username->introspection module.",
             type = "table"
-        }
+        },
+        accessdenied = {
+            type = "boolean",
+            description = "The chatbox will tell a user if they don't have permission instead of saying nothing",
+            default = false,
+          },
     },
     dependencies = {
         introspection = { min = "2.0", optional = true },
@@ -148,6 +153,8 @@ return {
                             end
                             sendMessage(user, ht)
                         end
+                    elseif config.chatbox.accessdenied.value then
+                        sendMessage(user, "You do not have permission to run this command.")
                     end
                 end
             end
