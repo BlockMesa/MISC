@@ -139,22 +139,24 @@ return {
             start = function()
                 while true do
                     local event, user, command, args, data = os.pullEvent("command")
-                    local verified = data.ownerOnly
-                    if not verified and config.chatbox.whitelist.value[user] then
-                        verified = true
-                    end
-                    if verified and command == config.chatbox.command.value then
-                        if commands[args[1]] then
-                            commands[args[1]](user, { table.unpack(args, 2, #args) })
-                        else -- show helptext
-                            local ht = "Valid commands are: "
-                            for k, v in pairs(commands) do
-                                ht = ht .. k .. " "
-                            end
-                            sendMessage(user, ht)
+                    if command == config.chatbox.command.value then
+                        local verified = data.ownerOnly
+                        if not verified and config.chatbox.whitelist.value[user] then
+                            verified = true
                         end
-                    elseif config.chatbox.accessdenied.value then
-                        sendMessage(user, "You do not have permission to run this command.")
+                        if verified then
+                            if commands[args[1]] then
+                                commands[args[1]](user, { table.unpack(args, 2, #args) })
+                            else -- show helptext
+                                local ht = "Valid commands are: "
+                                for k, v in pairs(commands) do
+                                    ht = ht .. k .. " "
+                                end
+                                sendMessage(user, ht)
+                            end
+                        elseif config.chatbox.accessdenied.value then
+                            sendMessage(user, "You do not have permission to run this command.")
+                        end
                     end
                 end
             end
