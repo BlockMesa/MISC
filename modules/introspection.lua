@@ -155,6 +155,7 @@ return {
             end)
           end
         end
+        sleep()
       end
     end
     interface.start = function() parallel.waitForAll(mainLoop,introspectLoop)	end --oops
