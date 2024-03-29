@@ -158,7 +158,13 @@ return {
         sleep()
       end
     end
-    interface.start = function() parallel.waitForAll(mainLoop,introspectLoop)	end --oops
+    local function keepAliveLoop()
+      while true do
+          os.pullEvent("websocket_closed")
+          error("websocket closed?????")
+      end
+    end
+    interface.start = function() parallel.waitForAll(mainLoop,introspectLoop,keepAliveLoop)	end --oops
     ---@class modules.introspection.interface
     return interface
   end
