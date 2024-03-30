@@ -161,7 +161,8 @@ return {
     local function keepAliveLoop()
       while true do
           os.pullEvent("websocket_closed")
-          error("websocket closed?????")
+		  print("websocket closed for some reason")
+          os.queueEvent("terminate")
       end
     end
     interface.start = function() parallel.waitForAll(mainLoop,introspectLoop,keepAliveLoop)	end --oops
