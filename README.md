@@ -1,3 +1,5 @@
+# THIS FORK IS CURRENTLY UNSTABLE! DO NOT USE IT!
+
 # MISC - Modular Inventory Storage and Crafting
 
 PRs are welcome to this project, I hope the documentation is clear enough, but if you have any questions feel free to ask.
